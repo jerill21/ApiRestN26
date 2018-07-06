@@ -1,0 +1,30 @@
+# Spring Boot configuration
+
+spring:
+  profiles:
+    active: development
+
+# Database
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: Transactions
+
+# Logging
+
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+
+  level:
+    com.transactions: DEBUG
+    org.springframework: INFO
+    org.mongodb: DEBUG
+
+# Server configuration
+
+server:
+  port: 8082
+  sessionTimeout: 30
