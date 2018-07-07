@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.transactions.statistics.dto.StatisticsDTO;
 import com.transactions.statistics.dto.TransactionDTO;
 import com.transactions.statistics.model.Transaction;
 import com.transactions.statistics.repository.TransactionRepository;
@@ -51,5 +52,42 @@ public class TransactionServiceImpl implements ITransactionService {
 		return listDTO;
 	}
 
+	@Override
+	public StatisticsDTO findLastStatistics() {
+
+		long belowLimit = System.currentTimeMillis() - 60000;
+		
+		List<Transaction> list = repository.findByTimestampGreaterThanQuery(belowLimit);
+		
+		double sum = 0;
+		double avg = 0;
+		double min = Double.MAX_VALUE;
+		double max = -1;
+		
+		for (Transaction t: list) {
+		
+			sum += t.getAmount();
+			
+			if (t.getAmount() > max) {
+				max = t.getAmount();
+			}
+			
+			if (t.getAmount() < min) {
+				min = t.getAmount();
+			}
+		}
+		avg = sum/list.size();
+
+		StatisticsDTO dto = new StatisticsDTO();
+		dto.setAvg(avg);
+		dto.setCount(list.size());
+		dto.setMax(max);
+		dto.setMin(min);
+		dto.setSum(sum);
+		
+		return dto;
+	}
+
+	
 	
 }

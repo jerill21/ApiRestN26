@@ -20,11 +20,11 @@ public class StatisticsController {
 
 	@Autowired
 	ITransactionService transactionService;
-//	
-//    @RequestMapping(method = RequestMethod.GET)
-//    @ApiOperation(value = "Get a list of all transactions.", notes = "")
-//    public StatisticsDTO findLastStatistics() {
-////        return transactionService.findLastStatistics();
-//    }
+	
+    @RequestMapping(method = RequestMethod.GET)
+    @ApiOperation(value = "Get a list of all transactions.", notes = "")
+    public StatisticsDTO findLastStatistics() {
+        return transactionService.findLastStatistics();
+    }
     
 }
