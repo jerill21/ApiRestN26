@@ -32,7 +32,6 @@ public class TransactionController {
     public Integer createTransaction(@RequestBody TransactionDTO transaction) throws ParseException {
     	
     	return transactionService.createTransaction(transaction);
-//    	return Response.status(code).build();
     }
     
     @RequestMapping(method = RequestMethod.GET)

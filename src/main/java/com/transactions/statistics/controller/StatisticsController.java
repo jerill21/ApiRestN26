@@ -22,7 +22,7 @@ public class StatisticsController {
 	ITransactionService transactionService;
 	
     @RequestMapping(method = RequestMethod.GET)
-    @ApiOperation(value = "Get a list of all transactions.", notes = "")
+    @ApiOperation(value = "Get statistic based on the transactions which happened in the last 60 seconds", notes = "")
     public StatisticsDTO findLastStatistics() {
         return transactionService.findLastStatistics();
     }

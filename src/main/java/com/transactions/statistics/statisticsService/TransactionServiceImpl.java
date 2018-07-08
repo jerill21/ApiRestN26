@@ -61,26 +61,34 @@ public class TransactionServiceImpl implements ITransactionService {
 		
 		double sum = 0;
 		double avg = 0;
-		double min = Double.MAX_VALUE;
-		double max = -1;
+		double min = 0;
+		double max = 0;
+		int size = 0;
 		
-		for (Transaction t: list) {
-		
-			sum += t.getAmount();
+		if (list != null && !list.isEmpty()) {
 			
-			if (t.getAmount() > max) {
-				max = t.getAmount();
+			min = Long.MAX_VALUE;
+			
+			for (Transaction t: list) {
+				
+				sum += t.getAmount();
+				
+				if (t.getAmount() > max) {
+					max = t.getAmount();
+				}
+				
+				if (t.getAmount() < min) {
+					min = t.getAmount();
+				}
 			}
 			
-			if (t.getAmount() < min) {
-				min = t.getAmount();
-			}
+			size = list.size();
+			avg = sum/list.size();
 		}
-		avg = sum/list.size();
 
 		StatisticsDTO dto = new StatisticsDTO();
 		dto.setAvg(avg);
-		dto.setCount(list.size());
+		dto.setCount(size);
 		dto.setMax(max);
 		dto.setMin(min);
 		dto.setSum(sum);
